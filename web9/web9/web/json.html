@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试json数据的传输</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<label for="city">城市：</label>
+<select id="city">
+    <option value="1">北京</option>
+
+
+</select>
+
+<button id="getCityData">获取城市下拉框数据</button>
+<script>
+    window.onload=function(){
+
+        //给按钮绑定事件
+        let getCity=document.getElementById("getCityData");
+        console.log(getCity)
+        getCity.onclick=function(){
+            //写你如何请求服务端，获取城市数据，并把数据展示到下拉框里
+            //技术实现：jquery 的 ajax方法
+            //alert(1)
+            // $.ajax({
+            //     url:'json',
+            //     dataType:'json',
+            //     type:'get',
+            //     success:function(result){
+            //        // alert("ok");
+            //        // alert(result)
+            //        // let jsonObj=JSON.parse(result);
+            //
+            //         for(let i;i<result.length;i++){
+            //             alert(result[i].id+","+result[i].name)
+            //         }
+            //     }
+            // })
+            //$.get()
+            $.post("json",function(data){
+                //获取下拉框对象
+                let city=document.getElementById("city");
+                city.options.length=0;
+                for (let i = 0; i <data.length; i++) {
+                    //alert(data[i].id+":"+data[i].name);
+                    let option=new Option(data[i].name,data[i].id)
+                    city.add(option);
+                }
+            },"json")
+
+
+        }
+
+
+
+    }
+
+
+</script>
+</body>
+</html>
